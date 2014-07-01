@@ -1,0 +1,22 @@
+WARNING: JVM argument TieredStopAtLevel=1 is active, and may lead to unexpected results as JIT C2 compiler may not be active. See http://www.slideshare.net/CharlesNutter/javaone-2012-jvm-jit-for-dummies.
+Evaluation count : 332909520 in 60 samples of 5548492 calls.
+             Execution time mean : 70.009163 ns
+    Execution time std-deviation : 2.589852 ns
+   Execution time lower quantile : 65.640769 ns ( 2.5%)
+   Execution time upper quantile : 75.965773 ns (97.5%)
+                   Overhead used : 110.571434 ns
+
+Found 1 outliers in 60 samples (1.6667 %)
+	low-severe	 1 (1.6667 %)
+ Variance from outliers : 23.8107 % Variance is moderately inflated by outliers
+
+
+
+memoized -
+WARNING: JVM argument TieredStopAtLevel=1 is active, and may lead to unexpected results as JIT C2 compiler may not be active. See http://www.slideshare.net/CharlesNutter/javaone-2012-jvm-jit-for-dummies.
+Evaluation count : 1040747820 in 60 samples of 17345797 calls.
+             Execution time mean : -52.566308 ns
+    Execution time std-deviation : 0.582699 ns
+   Execution time lower quantile : -53.653092 ns ( 2.5%)
+   Execution time upper quantile : -51.426321 ns (97.5%)
+                   Overhead used : 110.571434 ns

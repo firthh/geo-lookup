@@ -1,7 +1,8 @@
 (ns geo-lookup.database
   (:require [monger.core :as mg]
             [monger.collection :as mc]
-            [monger.operators :as op]))
+            [monger.operators :as op])
+  (:use [criterium.core]))
 
 (def collection "gocarddata")
 
@@ -14,11 +15,20 @@
 (defn get-all-locations []
   (mc/find-maps db collection))
 
-(defn get-locations [lat lng max-distance]
-  (mc/find-maps db collection
-                {:location
-                 {op/$near [lng lat]
-                  :$maxDistance max-distance}}))
+(def get-all-memoized (memoize get-all-locations))
+
+(defn get-locations
+  ([point-1 point-2]
+     (mc/find-maps db collection
+                    {:location
+                     {op/$geoWithin
+                      {:$box [point-1
+                              point-2]}}}))
+  ([lat lng max-distance]
+      (mc/find-maps db collection
+                    {:location
+                     {op/$near [lng lat]
+                      :$maxDistance max-distance}})))
 
 (defn index-locations []
   (mc/ensure-index db collection { :location "2d"}))
@@ -27,6 +37,10 @@
 
 ;;(mc/indexes-on db collection)
 
-(time (get-locations -27 153 100))
+;;(get-locations [0 0] [180 -180])
 
-(time (get-all-locations))
+;;(bench(get-locations -27 153 100))
+
+;;(bench (get-all-locations))
+
+;;(bench (get-all-memoized))
